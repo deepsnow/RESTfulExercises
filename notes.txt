@@ -72,3 +72,10 @@ But, my python client gets a JSON response. That must be the default because my 
 See the "Adding a Model" section of http://www.asp.net/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api.
 
 I've summed up my thoughts on REST in https://docs.google.com/presentation/d/1d1gKPsCupwUTx2z2vNad8lFDvsgPhYOmNmPUVJDm2jU/edit?usp=sharing.
+
+Oct 16, 2015
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here's the path to my new Python installation on my dev box.
+
+C:\Users\doug\AppData\Local\Programs\Python\Python35\python.exe
