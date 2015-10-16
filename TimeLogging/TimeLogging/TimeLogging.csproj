@@ -175,7 +175,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\LogsControllerAPI.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DataAccess\TimeLogService.cs" />
     <Compile Include="Global.asax.cs">
