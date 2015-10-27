@@ -79,3 +79,18 @@ Oct 16, 2015
 Here's the path to my new Python installation on my dev box.
 
 C:\Users\doug\AppData\Local\Programs\Python\Python35\python.exe
+
+
+Oct 23, 2015
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+OK, updated from origin to local repo on my personal dev box.
+
+
+Oct 26, 2015
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+OK, today I'd like to add unit testing.
+1- I've added SimpleInjector to two projects within the solution.
+2- I've made a working test for HomeController, and verified that the test passes when it should pass and fails when it should fail, and that HomeController works as expected in production mode.
+3- 

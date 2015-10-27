@@ -4,7 +4,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>TimeLogging</TargetDatabaseName>
     <DeployScriptFileName>TimeLogging.Database.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=(localdb)\MSSQLLocalDb;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-TimeLogging-20151006112505.mdf;Integrated Security=True;Pooling=False</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
   </PropertyGroup>
 </Project>

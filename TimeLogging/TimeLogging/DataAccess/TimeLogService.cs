@@ -4,9 +4,15 @@ using TimeLogging.Models;
 
 namespace TimeLogging.DataAccess
 {
-    public class TimeLogService
+    public interface IIimeLogService
     {
-        public static List<TimeLogViewModel> GetFiveLatestEntries()
+        List<TimeLogViewModel> GetFiveLatestEntries();
+        void SubmitTimeLog(TimeLogViewModel log);
+    }
+
+    public class TimeLogService : IIimeLogService
+    {
+        public List<TimeLogViewModel> GetFiveLatestEntries()
         {
             var timeLoggingContext = new TimeLoggingContext();
 
@@ -22,7 +28,7 @@ namespace TimeLogging.DataAccess
 
         }
 
-        public static void SubmitTimeLog(TimeLogViewModel log)
+        public void SubmitTimeLog(TimeLogViewModel log)
         {
             var timeLoggingContext = new TimeLoggingContext();
             var newEntry = new Log()

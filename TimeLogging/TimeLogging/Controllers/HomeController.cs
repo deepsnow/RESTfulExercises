@@ -10,9 +10,16 @@ namespace TimeLogging.Controllers
 {
     public class HomeController : Controller
     {
+        private IIimeLogService _tls;
+
+        public HomeController(IIimeLogService tls)
+        {
+            _tls = tls;
+        }
+
         public ActionResult Index()
         {
-            List<TimeLogViewModel> entries = TimeLogService.GetFiveLatestEntries();
+            List<TimeLogViewModel> entries = _tls.GetFiveLatestEntries();
 
             return View(entries);
         }
@@ -22,7 +29,7 @@ namespace TimeLogging.Controllers
         [AllowAnonymous]
         public ActionResult SubmitTimeLog(TimeLogViewModel log)
         {
-            TimeLogService.SubmitTimeLog(log);
+            _tls.SubmitTimeLog(log);
 
             return RedirectToAction("Index", "Home");
         }
