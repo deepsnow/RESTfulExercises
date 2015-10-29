@@ -269,6 +269,10 @@
     <Content Include="Views\LogsMvc\Details.cshtml" />
     <Content Include="Views\LogsMvc\Edit.cshtml" />
     <Content Include="Views\LogsMvc\Index.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

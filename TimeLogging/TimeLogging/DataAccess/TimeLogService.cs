@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TimeLogging.Models;
+using System;
 
 namespace TimeLogging.DataAccess
 {
@@ -8,6 +9,8 @@ namespace TimeLogging.DataAccess
     {
         List<TimeLogViewModel> GetFiveLatestEntries();
         void SubmitTimeLog(TimeLogViewModel log);
+        void AddLog(Log log);
+        List<Log> GetEntriesByDate();
     }
 
     public class TimeLogService : IIimeLogService
@@ -42,6 +45,23 @@ namespace TimeLogging.DataAccess
 
             timeLoggingContext.Logs.Add(newEntry);
             timeLoggingContext.SaveChanges();
+        }
+
+        public void AddLog(Log log)
+        {
+            var timeLoggingContext = new TimeLoggingContext();
+
+            timeLoggingContext.Logs.Add(log);
+            timeLoggingContext.SaveChanges();
+        }
+
+        public List<Log> GetEntriesByDate()
+        {
+            var timeLoggingContext = new TimeLoggingContext();
+
+            var result = timeLoggingContext.Logs.Where(r => r.StartTime.Day.Equals(DateTime.UtcNow.Day));
+            return result.ToList();
+
         }
 
     }

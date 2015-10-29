@@ -22,7 +22,6 @@ namespace TimeLogging.Tests.Controllers
         [TestInitialize]
         public void Init()
         {
-            //container = new Container();
             tlsMock = new Mock<IIimeLogService>();
         }
 
@@ -37,8 +36,56 @@ namespace TimeLogging.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            tlsMock.Verify(t => t.GetFiveLatestEntries(), Times.Once);
+            tlsMock.Verify(t => t.GetEntriesByDate(), Times.Once);
         }
+
+        [TestMethod]
+        public void CreateGet()
+        {
+            // Arrange
+            HomeController controller = new HomeController(tlsMock.Object);
+
+            // Act
+            ViewResult result = controller.Create() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void CreatePost()
+        {
+            // Arrange
+            HomeController controller = new HomeController(tlsMock.Object);
+            var log = new Log()
+            {
+                UserId = "doug",
+                Billable = false,
+                StartTime = DateTime.Now.AddHours(-1),
+                EndTime = DateTime.Now,
+                Comment = "test entry",
+            };
+
+            // Act
+            ViewResult result = controller.Create(log) as ViewResult;
+
+            // Assert
+            tlsMock.Verify(t => t.AddLog(It.Is<Log>(l => l.Equals(log))), Times.Once);
+        }
+
+        //[TestMethod]
+        //public void Index()
+        //{
+        //    // Arrange
+        //    HomeController controller = new HomeController(tlsMock.Object);
+
+        //    // Act
+        //    ViewResult result = controller.Index() as ViewResult;
+
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //    tlsMock.Verify(t => t.GetFiveLatestEntries(), Times.Once);
+        //}
 
         //[TestMethod]
         //public void About()

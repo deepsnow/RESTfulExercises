@@ -1,58 +1,53 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<TimeLogging.Models.Log>
+@{
+    ViewBag.Title = "Index";
 }
-
-@using TimeLogging.Models
-@model List<TimeLogViewModel>
-
-<table>
-
-</table>
-
-<div>
-    <h2>5 Most Recent Time Logs</h2>
-    <table border="1">
-        @foreach (TimeLogViewModel objTimeLog in Model)
-        {
-            <tr>
-                <td>@objTimeLog.UserId.ToString()</td>
-                <td>@objTimeLog.StartTime.ToLocalTime()</td>
-                <td>@objTimeLog.EndTime.ToLocalTime()</td>
-                <td>@objTimeLog.Billable.ToString()</td>
-                <td>@objTimeLog.Comment</td>
-            </tr>
-        }
-    </table>
-
-    <h2>Add New Time Log</h2>
-    
-    @*<form method="post">*@
-    @using (Html.BeginForm("SubmitTimeLog", "Home", null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Billable)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
     {
-        <fieldset>
-            @*<legend>Enter Time Log</legend>*@
-            <div>
-                <label for="StartTime">Start Time:</label>
-                <input type="datetime-local" name="StartTime" value="" />
-            </div>
-            <div>
-                <label for="EndTime">End Time:</label>
-                <input type="datetime-local" name="EndTime" value="" />
-            </div>
-            <div>
-                <label for="Billable">Billable:</label>
-                <input type="checkbox" name="Billable" value="" />
-            </div>
-            <div>
-                <label for="Comment">Comment:</label>
-                <input type="text" name="Comment" value="" />
-            </div>
-            <div>
-                <label>&nbsp;</label>
-                <input type="submit" value="Submit" class="submit" />
-            </div>
-        </fieldset>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Billable)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
     }
-    @*</form>*@
-
-</div>
+</table>
