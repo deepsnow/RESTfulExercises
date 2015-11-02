@@ -93,4 +93,36 @@ Oct 26, 2015
 OK, today I'd like to add unit testing.
 1- I've added SimpleInjector to two projects within the solution.
 2- I've made a working test for HomeController, and verified that the test passes when it should pass and fails when it should fail, and that HomeController works as expected in production mode.
-3- 
+
+Oct 30, 2015
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yesterday I started porting the LogsMvc CRUD operations to Home. (I successfully ported Index() and both Create()s.)
+
+I'll continue that today. I've done Details(). I feel like I'll get the others (the two Edit()s and the two Deletes()s) in pretty short order.
+
+I'm temped to attempt to subject the TimeLogService to unit testing, or integration testing.
+
+	What did I read about that back on Oct 13th?
+		https://msdn.microsoft.com/en-us/data/dn314429.aspx
+		
+Nov 2, 2013
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Does this post have offer any solutions for me?
+	http://adventuresdotnet.blogspot.com/2011/03/mocking-static-methods-for-unit-testing.html
+		That's good for mocking static methods, but not necessarily for extension methods.
+		
+OK, I've found a way to mock DbContext interactions, but the method only works if I use LINQ method syntax and not the declarative query syntax.
+	See https://msdn.microsoft.com/en-us/library/bb397947(v=vs.120).aspx.
+	
+The technique is to wrapper the LINQ extension methods (the "standard query operators") in non-static interfaces and implementation classes. See today's commit.
+I'm guessing that this technique will only take me so far. As the TimeLogService class grows more complex, the wrapper will be harder and harder to maintain.
+Should I just stick to integration testing of the EF-specific code?
+
+How can I do so if the database that I'm coding against is the one that's embedded within VS2013?
+
+
+	
+
+

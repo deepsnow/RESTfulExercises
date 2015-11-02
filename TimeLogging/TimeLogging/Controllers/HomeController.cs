@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 using TimeLogging.Models;
 using TimeLogging.DataAccess;
 
@@ -39,28 +40,28 @@ namespace TimeLogging.Controllers
             return View(_tls.GetEntriesByDate());
         }
 
-        //// GET: LogsMvc/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Log log = db.Logs.Find(id);
-        //    if (log == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(log);
-        //}
+        // GET: Home/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Log log = _tls.FindLog(id);
+            if (log == null)
+            {
+                return HttpNotFound();
+            }
+            return View(log);
+        }
 
-        // GET: /Create
+        // GET: Home/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: LogsMvc/Create
+        // POST: Home/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

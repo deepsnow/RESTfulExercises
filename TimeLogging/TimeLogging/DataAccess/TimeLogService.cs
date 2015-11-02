@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using TimeLogging.Models;
 using System;
+using System.Data.Entity;
 
 namespace TimeLogging.DataAccess
 {
@@ -11,10 +13,20 @@ namespace TimeLogging.DataAccess
         void SubmitTimeLog(TimeLogViewModel log);
         void AddLog(Log log);
         List<Log> GetEntriesByDate();
+        Log FindLog(int? id);
     }
 
     public class TimeLogService : IIimeLogService
     {
+        private ITimeLoggingContext _context;
+        private IQueryableWrapper _query;
+
+        public TimeLogService(ITimeLoggingContext context, IQueryableWrapper query)
+        {
+            _context = context;
+            _query = query;
+        }
+
         public List<TimeLogViewModel> GetFiveLatestEntries()
         {
             var timeLoggingContext = new TimeLoggingContext();
@@ -57,12 +69,46 @@ namespace TimeLogging.DataAccess
 
         public List<Log> GetEntriesByDate()
         {
-            var timeLoggingContext = new TimeLoggingContext();
+            // I don't know how to mock these first two forms:
+            
+            //var result = _context.Logs.Where(r => 
+            //    (r.StartTime.Day == DateTime.UtcNow.Day)
+            //    && (r.StartTime.Month == DateTime.UtcNow.Month)
+            //    && (r.StartTime.Year == DateTime.UtcNow.Year));
 
-            var result = timeLoggingContext.Logs.Where(r => r.StartTime.Day.Equals(DateTime.UtcNow.Day));
+            //var result = from r in _context.Logs
+            //             where (r.StartTime.Day == DateTime.UtcNow.Day)
+            //                && (r.StartTime.Month == DateTime.UtcNow.Month)
+            //                && (r.StartTime.Year == DateTime.UtcNow.Year)
+            //             select r;
+
+            var result = _query.Where(_context.Logs, (r =>
+                            (r.StartTime.Day == DateTime.UtcNow.Day)
+                            && (r.StartTime.Month == DateTime.UtcNow.Month)
+                            && (r.StartTime.Year == DateTime.UtcNow.Year)));
+
             return result.ToList();
 
         }
 
+        public Log FindLog(int? id)
+        {
+            var timeLoggingContext = new TimeLoggingContext();
+
+            return timeLoggingContext.Logs.Where(r => r.Id == id).SingleOrDefault<Log>();
+        }
+    }
+
+    public interface IQueryableWrapper
+    {
+        IQueryable<TSource> Where<TSource>(IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate);
+    }
+
+    public class QueryableLogs : IQueryableWrapper
+    {
+        public IQueryable<TSource> Where<TSource>(IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        {
+            return source.Where(predicate);
+        }
     }
 }

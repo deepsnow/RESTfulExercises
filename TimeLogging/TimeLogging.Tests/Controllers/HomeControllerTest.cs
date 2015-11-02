@@ -16,7 +16,6 @@ namespace TimeLogging.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        private Container container;
         private Mock<IIimeLogService> tlsMock;
 
         [TestInitialize]
@@ -71,6 +70,19 @@ namespace TimeLogging.Tests.Controllers
 
             // Assert
             tlsMock.Verify(t => t.AddLog(It.Is<Log>(l => l.Equals(log))), Times.Once);
+        }
+
+        [TestMethod]
+        public void Details()
+        {
+            // Arrange
+            HomeController controller = new HomeController(tlsMock.Object);
+
+            // Act
+            ViewResult result = controller.Details(5) as ViewResult;
+
+            // Assert
+            tlsMock.Verify(t => t.FindLog(5), Times.Once);
         }
 
         //[TestMethod]

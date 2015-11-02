@@ -11,6 +11,7 @@ namespace TimeLogging.App_Start
     using SimpleInjector.Integration.Web.Mvc;
 
     using TimeLogging.DataAccess;
+    using TimeLogging.Models;
     
     public static class SimpleInjectorInitializer
     {
@@ -35,6 +36,8 @@ namespace TimeLogging.App_Start
             // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
 
             container.Register<IIimeLogService, TimeLogService>(Lifestyle.Scoped);
+            container.Register<ITimeLoggingContext, TimeLoggingContext>(Lifestyle.Scoped);
+            container.Register<IQueryableWrapper, QueryableLogs>(Lifestyle.Scoped);
         }
     }
 }
