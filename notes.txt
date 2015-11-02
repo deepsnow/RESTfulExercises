@@ -121,8 +121,9 @@ I'm guessing that this technique will only take me so far. As the TimeLogService
 Should I just stick to integration testing of the EF-specific code?
 
 How can I do so if the database that I'm coding against is the one that's embedded within VS2013?
-
-
+	I'm reading about localdb in https://msdn.microsoft.com/en-us/library/ms233817(v=vs.120).aspx.
+	I think I can write integration tests against localdb as it is supposed to start-up and shut down on demand: http://blogs.msdn.com/b/sqlexpress/archive/2011/07/12/introducing-localdb-a-better-sql-express.aspx.
+	
 	
 
 
