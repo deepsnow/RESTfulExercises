@@ -2,12 +2,12 @@ namespace TimeLogging.Models
 {
     using System.Data.Entity;
 
-    public interface ITimeLoggingContext
-    {
-        DbSet<Log> Logs { get; set; }
-    }
+    //public interface ITimeLoggingContext
+    //{
+    //    DbSet<Log> Logs { get; set; }
+    //}
 
-    public partial class TimeLoggingContext : DbContext, ITimeLoggingContext
+    public partial class TimeLoggingContext : DbContext //, ITimeLoggingContext
     {
         public TimeLoggingContext()
             : base("name=TimeLogging")

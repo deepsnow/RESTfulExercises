@@ -32,12 +32,7 @@ namespace TimeLogging.App_Start
      
         private static void InitializeContainer(Container container)
         {
-            // For instance:
-            // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
-
             container.Register<IIimeLogService, TimeLogService>(Lifestyle.Scoped);
-            container.Register<ITimeLoggingContext, TimeLoggingContext>(Lifestyle.Scoped);
-            container.Register<IQueryableWrapper, QueryableLogs>(Lifestyle.Scoped);
         }
     }
 }
