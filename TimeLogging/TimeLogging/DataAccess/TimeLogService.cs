@@ -12,7 +12,7 @@ namespace TimeLogging.DataAccess
         List<TimeLogViewModel> GetFiveLatestEntries();
         void SubmitTimeLog(TimeLogViewModel log);
         void AddLog(Log log);
-        List<Log> GetEntriesByDate();
+        List<Log> GetEntriesByDate(DateTime? dayInQuestion = null);
         Log FindLog(int? id);
     }
 
@@ -58,13 +58,18 @@ namespace TimeLogging.DataAccess
             timeLoggingContext.SaveChanges();
         }
 
-        public List<Log> GetEntriesByDate()
+        public List<Log> GetEntriesByDate(DateTime? dayInQuestion)
         {
+            var day = DateTime.UtcNow;
+
+            if (dayInQuestion.HasValue)
+                day = dayInQuestion.Value;
+
             var context = new TimeLoggingContext();
             var result = context.Logs.Where((r =>
-                            (r.StartTime.Day == DateTime.UtcNow.Day)
-                            && (r.StartTime.Month == DateTime.UtcNow.Month)
-                            && (r.StartTime.Year == DateTime.UtcNow.Year)));
+                            (r.StartTime.Day == day.Day)
+                            && (r.StartTime.Month == day.Month)
+                            && (r.StartTime.Year == day.Year)));
 
             return result.ToList();
 

@@ -173,3 +173,4 @@ Here are some links that I might want to review in more depth later on:
 	
 Note also that in order to get "publish" to work I had to target SQL Server 2012 in TimeLogging.Database because that's what I'm targeting in TimeLogging's web.config. (Is that what v11.0 means?)
 
+I've got things rigged up to use the TimeLogging.Database project's publish operation to set up the Integration tests, and it's very slow. But, it seems to work end-to-end.

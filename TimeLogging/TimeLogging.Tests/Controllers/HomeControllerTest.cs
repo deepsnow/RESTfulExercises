@@ -35,7 +35,7 @@ namespace TimeLogging.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            tlsMock.Verify(t => t.GetEntriesByDate(), Times.Once);
+            tlsMock.Verify(t => t.GetEntriesByDate(It.IsAny<DateTime?>()), Times.Once);
         }
 
         [TestMethod]
