@@ -124,6 +124,52 @@ How can I do so if the database that I'm coding against is the one that's embedd
 	I'm reading about localdb in https://msdn.microsoft.com/en-us/library/ms233817(v=vs.120).aspx.
 	I think I can write integration tests against localdb as it is supposed to start-up and shut down on demand: http://blogs.msdn.com/b/sqlexpress/archive/2011/07/12/introducing-localdb-a-better-sql-express.aspx.
 	
-	
 
+Nov 9, 2013
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+OK, I want to set up some integration tests for the TimeLogService class since I've determined that it's not worthwhile to cover it unit tests (as these reduce code clarity in an unacceptable way in EF-centric code).
+
+Can I somehow employ the TimeLogging.Database class to automate the population of a test database?
+
+
+Nov 10, 2013
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After much tinkering, I've succeeded with one "publish" operation from TimeLogging.Database to (localdb)\v11.0;Initial Catalog=TimeLogging. No data was altered.
+
+I don't think that I can use the SSDT project TimeLogging.Database to facilitate integraiton testing of the EF-centric TimeLogService class.
+Why not?
+	See http://stackoverflow.com/questions/13881331/how-to-use-sql-server-database-project
+	The topmost answer says:
+		"Think of the source database (in your case, your database project) as being the "to be" state after deployment. When a deployment is initiated, the executable (SqlPackage.exe) compares the source with the target and generates a difference/delta script to make the target look like the source. This is why we no longer have to specify CREATE or ALTER; the tool figures it out."
+	Since "publish" operation deploys the new or newly updated schema while saving all of the data, I can't use that.
+	I have to have something that wipes out previous data, and inserts carefully chosen data that will support the integration tests.
+
+Well, maybe there's a way to generate a publish profile that doesn't preserve the data?
+
+	http://blogs.msdn.com/b/ssdt/archive/2012/02/02/including-data-in-an-sql-server-database-project.aspx shows how to populate seed data (or static data or domain data), but that's an extension of the "contract" implied by the schema
+	Well, a similar page (http://www.wintellect.com/devcenter/rrobinson/how-to-include-and-deploy-data-using-a-visual-studio-database-project) persuades me that if I can load static, domain specific data I can load any data that I might need for my tests.
+	
+But how can I invoke the publish from my integration test suite?
+
+	http://stackoverflow.com/questions/13881331/how-to-use-sql-server-database-project says that I can invoke SqlPackage.exe to perform a publish...
+		But, that invocation requires me to pass the path to TimeLogging.Database.dacpac, and I would have to ensure that it was newly built...
+			I've added a dependency from TimeLogging.IntegrationTests to TimeLogging.Database to address this.
+	
+It seems that I have three choices for SetUp in my Integration Tests:
+
+	1- custom SQL scripts invoked through sqlcmd.exe (formerly osql.exe // see https://en.wikipedia.org/wiki/Microsoft_SQL_Server#SQLCMD).
+	2- custom SQL scripts invoked through Script.PostDeployment.sql as part of TimeLogging.Database's publish operation (via SqlPackage.exe)
+	3- custom C# code
+	
+I'm leaning toward (2) although I think it would be a kludge to differentiate between deployment for testing and deployment for production. Could I use SSDT project-defined SQLCMD variable to make that conditional?
+
+Here are some links that I might want to review in more depth later on:
+	http://dba.stackexchange.com/questions/64141/sql-server-projects-in-visual-studio-2013
+	http://sqlbits.com/Sessions/Event10/Declarative_Database_Development_with_SSDT
+	http://www.connectionstrings.com/
+	http://www.codeproject.com/Articles/825831/SQL-Server-Database-Development-in-Visual-Studio (good screen shot of the compare tool in action?)
+	
+Note also that in order to get "publish" to work I had to target SQL Server 2012 in TimeLogging.Database because that's what I'm targeting in TimeLogging's web.config. (Is that what v11.0 means?)
 

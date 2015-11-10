@@ -1,15 +1,11 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SimpleInjector;
-using Moq;
 using TimeLogging.Models;
 using TimeLogging.DataAccess;
-using System.Linq.Expressions;
 
-namespace TimeLogging.Tests.DataAccess
+namespace TimeLogging.IntegrationTests
 {
     [TestClass]
     public class TimeLogServiceTest
@@ -22,6 +18,9 @@ namespace TimeLogging.Tests.DataAccess
             tls = new TimeLogService();
         }
 
-
+        [TestMethod]
+        public void TestMethod1()
+        {
+        }
     }
 }

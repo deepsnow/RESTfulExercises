@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogging", "TimeLogging\TimeLogging.csproj", "{0303CA05-358C-40BC-8E3D-42096906D355}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogging.Tests", "TimeLogging.Tests\TimeLogging.Tests.csproj", "{C01580A1-279F-4CDA-BF95-98A0882256FC}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TimeLogging.Database", "TimeLogging.Database\TimeLogging.Database.sqlproj", "{64AC02C1-9DB8-492D-BFF1-EDDB12D70FB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogging.IntegrationTests", "TimeLogging.IntegrationTests\TimeLogging.IntegrationTests.csproj", "{3DC8705F-17AE-4055-BEF6-1F055EBB061C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{64AC02C1-9DB8-492D-BFF1-EDDB12D70FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64AC02C1-9DB8-492D-BFF1-EDDB12D70FB1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64AC02C1-9DB8-492D-BFF1-EDDB12D70FB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3DC8705F-17AE-4055-BEF6-1F055EBB061C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC8705F-17AE-4055-BEF6-1F055EBB061C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC8705F-17AE-4055-BEF6-1F055EBB061C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC8705F-17AE-4055-BEF6-1F055EBB061C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
